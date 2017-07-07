@@ -10,10 +10,37 @@ first line contains two space separated integers describing the respective value
 
 */
 
-//checkArr has all the possible answers
-//for all checkArr[i]
-//all sortedA[j] must be a factor of checkArr[i]
- //else: checkArr++ (see labeled for loops)
- //if all sorted[B] factors into checkArr[i]
-  //counter +=1
-  //else break statement
+function getTotalX(a, b){
+    let counter = 0
+    let potentialAnswers = []
+    let highestA = a.pop()
+    //create array of potential answers
+    for(let i = highestA; i < b[0] + 1; i += highestA) {
+        potentialAnswers.push(i)
+    }
+    while(potentialAnswers.length) {
+        let checkMe = potentialAnswers.shift() //extract each potential answer and plug it into helper function that checks if the factor conditionals are met.
+        if (factorCompare(checkMe, a, b)) {
+            counter +=1
+        } else {
+            continue;
+        }
+    }
+
+    return counter
+}
+
+//factor conditional helper function
+function factorCompare (potentialAnswer, arrA, arrB) {
+    for (let i = 0; i < arrA.length; i++) {
+        if(potentialAnswer % arrA[i] !== 0) {
+            return false
+        }
+    }
+    for (let i = 0; i< arrB.length; i++) {
+        if(arrB[i] % potentialAnswer !== 0) {
+            return false
+        }
+    }
+    return true
+}
