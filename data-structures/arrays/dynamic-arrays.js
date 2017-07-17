@@ -19,45 +19,37 @@ Input: 2 space separated integers, N (# sequences)
 and Q, (number of queries)
 */
 
-
 function processData(arr) {
   let lastAnswer = 0
-  let s0 = [];
-  let s1 = [];
   let firstLine = arr.shift();
   let numSequences = firstLine[0]; // N empty sequences
   let numQueries = firstLine[1]; // Q queries
+  let allTheSequences = []
+
+for (let i=0; i < numSequences; i++) {
+  allTheSequences.push([]);
+}
 
   for (let i = 0; i < numQueries; i++) {
     //console.log(arr[i])
     if (arr[i][0] === 1) {
-      executeQueryOne(arr[i], lastAnswer, s0, s1);
+      executeQueryOne(arr[i], lastAnswer, numSequences, allTheSequences);
     } else {
-      lastAnswer = executeQueryTwo(arr[i], lastAnswer, s0, s1);
+      lastAnswer = executeQueryTwo(arr[i], lastAnswer, numSequences, allTheSequences);
     }
   }
 }
 
-function executeQueryOne(arr, lastAnswer, s0, s1) {
-  if (arr[1] === lastAnswer) {     //if x === lastAnswer, x = 0
-    s0.push(arr[2]);
-  } else {
-    s1.push(arr[2]); //if x !== lastAnswer, x = 1
-  }
+function executeQueryOne(arr, lastAnswer, N, seqList) {
+  seqList[(arr[1]^lastAnswer) % N].push(arr[2]);
 }
 
-function executeQueryTwo(arr, lastAnswer, s0, s1) {
-  if(arr[1] === lastAnswer) {
-    lastAnswer = s0[(arr[2] % s0.length)];
-    console.log('hit s0');
-    console.log(lastAnswer);
-    return lastAnswer
-  } else {
-    lastAnswer = s1[(arr[2] % s1.length)];
-    console.log('hit s1');
-    console.log(lastAnswer);
-    return lastAnswer
-  }
+function executeQueryTwo(arr, lastAnswer, N, seqList) {
+  let targetSequence = seqList[(arr[1]^lastAnswer) % N];
+  let length = targetSequence.length;
+  lastAnswer = targetSequence[arr[2] % length];
+  console.log(lastAnswer);
+  return lastAnswer;
 }
 
 processData([ [ 2, 5 ],[ 1, 0, 5 ],[ 1, 1, 7 ],[ 1, 0, 3 ],[ 2, 1, 0 ],[ 2, 1, 1 ] ]);
