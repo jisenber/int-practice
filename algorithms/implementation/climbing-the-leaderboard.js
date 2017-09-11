@@ -14,7 +14,7 @@ function main() {
   while (alice.length && uniqScores.length) {
     if (alice[index] < uniqScores[place]) {
       console.log(uniqScores.length + 1);
-        alice.shift();
+      alice.shift();
     } else if(alice[index] === uniqScores[place]) {
       console.log(uniqScores.length);
       uniqScores.pop();
