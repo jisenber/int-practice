@@ -67,7 +67,7 @@ processData([ [ '4', '5', '1 4 5 3 2' ], [ '4', '4', '2 2 4 3' ] ])
  //what I have in hackerrank so far
 
 function processData(parsedInput) {
-  let references
+  var references
   //  let parsedInput = parseData(input)
   //  console.log(parsedInput)
    parsedInput.forEach(function(trip) {
@@ -79,6 +79,7 @@ function processData(parsedInput) {
        })
        references = maximizeValue(pooled, parsedPrices)
    })
+
    console.log(parsedPrices);
    //console.log(parsedPrices.indexOf(references[0])+1, parsedPrices.indexOf(3));
 }
